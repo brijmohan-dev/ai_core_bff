@@ -1,0 +1,407 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ActivitySessionType {
+  activity_name: String!
+  activity_type: String!
+  completed: Boolean!
+  duration_seconds: Int!
+  id: ID!
+  mood_after: Int
+  mood_before: Int
+  notes: String
+  started_at: String!
+}
+
+type ActivityStreakType {
+  streak_days: Int!
+  total_completed: Int!
+}
+
+type ActivityType {
+  activity_type: String!
+  audio_url: String
+  description: String!
+  difficulty: String!
+  duration_minutes: Int!
+  id: ID!
+  name: String!
+  tags: [String!]!
+  thumbnail_url: String
+}
+
+input AddEmergencyContactInput {
+  email: String
+  is_primary: Boolean! = false
+  name: String!
+  notify_on_sos: Boolean! = true
+  phone: String!
+  relationship: String!
+}
+
+type AppointmentType {
+  ai_pre_summary: String
+  amount_charged: Float
+  created_at: String!
+  duration_minutes: Int!
+  id: ID!
+  payment_status: String!
+  professional_id: ID!
+  scheduled_at: String!
+  session_type: String!
+  status: String!
+  user_id: ID!
+  video_room_id: String
+}
+
+type AuthPayload {
+  access_token: String!
+  expires_in: Float!
+  refresh_token: String!
+  token_type: String!
+}
+
+input BookAppointmentInput {
+  duration_minutes: Int! = 50
+  professional_id: ID!
+  scheduled_at: String!
+  session_type: String! = "video"
+}
+
+type ChatMessageType {
+  content: String!
+  created_at: String!
+  crisis_score: Float
+  id: ID!
+  message_type: String!
+  role: String!
+  sentiment: Float
+  session_id: ID!
+}
+
+type ChatSessionType {
+  ai_summary: String
+  cbt_tools_used: [String!]!
+  crisis_flagged: Boolean!
+  ended_at: String
+  id: ID!
+  message_count: Int!
+  presenting_issue: String
+  sentiment_score: Float
+  session_type: String!
+  severity_detected: String
+  started_at: String!
+  status: String!
+  title: String
+}
+
+type CommunityPostType {
+  community_id: ID!
+  content: String!
+  created_at: String!
+  id: ID!
+  is_anonymous: Boolean!
+  is_pinned: Boolean!
+  moderation_status: String!
+}
+
+type CommunityType {
+  banner_url: String
+  created_at: String!
+  description: String!
+  id: ID!
+  is_private: Boolean!
+  member_count: Int!
+  name: String!
+  rules: [String!]!
+  therapy_type: String!
+}
+
+input CreateJournalInput {
+  content: String!
+  emotion_tags: [String!]! = []
+  entry_date: String
+  is_shared_with_therapist: Boolean! = false
+  title: String
+}
+
+input CreatePostInput {
+  content: String!
+  is_anonymous: Boolean! = false
+}
+
+type DailyPromptType {
+  date: String!
+  prompt: String!
+}
+
+type DashboardStatsType {
+  activities_this_week: Int!
+  avg_mood_score: Float!
+  journal_streak: Int!
+  mood_trend: [MoodTrendType!]!
+  recent_chat_sessions: [ChatSessionType!]!
+  total_sessions: Int!
+  wellness_score: Float!
+}
+
+type EmergencyContactType {
+  created_at: String!
+  email: String
+  id: ID!
+  is_primary: Boolean!
+  name: String!
+  notify_on_sos: Boolean!
+  phone: String!
+  relationship: String!
+}
+
+type HealthProfileType {
+  gad7_score: Int
+  goals: [String!]!
+  id: ID!
+  pcl5_score: Int
+  phq9_score: Int
+  primary_concern: String
+  severity_level: String!
+  therapy_types: [String!]!
+  triggers: [String!]!
+  updated_at: String!
+}
+
+type JournalEntryType {
+  content: String!
+  created_at: String!
+  emotion_tags: [String!]!
+  entry_date: String!
+  id: ID!
+  is_shared_with_therapist: Boolean!
+  photo_urls: [String!]!
+  prompt_used: String
+  sentiment_score: Float
+  title: String
+  updated_at: String!
+}
+
+input LogActivityInput {
+  activity_name: String!
+  activity_type: String!
+  completed: Boolean! = false
+  duration_seconds: Int!
+  mood_after: Int
+  mood_before: Int
+  notes: String
+}
+
+input LogMoodInput {
+  anxiety_level: Int
+  context_tags: [String!]! = []
+  energy_level: Int
+  mood_emoji: String
+  mood_score: Int!
+  note: String
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type MessageResult {
+  message: String!
+  success: Boolean!
+}
+
+type MoodLogType {
+  anxiety_level: Int
+  context_tags: [String!]!
+  energy_level: Int
+  id: ID!
+  logged_at: String!
+  mood_emoji: String
+  mood_score: Int!
+  note: String
+}
+
+type MoodTrendType {
+  avg_score: Float!
+  count: Int!
+  date: String!
+}
+
+type Mutation {
+  addEmergencyContact(input: AddEmergencyContactInput!): EmergencyContactType!
+  bookAppointment(input: BookAppointmentInput!): AppointmentType!
+  createChatSession(sessionType: String! = "ai"): ChatSessionType!
+  createCommunityPost(communityId: String!, input: CreatePostInput!): CommunityPostType!
+  createJournalEntry(input: CreateJournalInput!): JournalEntryType!
+  deleteEmergencyContact(id: String!): MessageResult!
+  deleteJournalEntry(id: String!): MessageResult!
+  endChatSession(sessionId: String!): ChatSessionType!
+  joinCommunity(communityId: String!): MessageResult!
+  leaveCommunity(communityId: String!): MessageResult!
+  logActivity(input: LogActivityInput!): ActivitySessionType!
+  logMood(input: LogMoodInput!): MoodLogType!
+
+  """Login with email and password"""
+  login(input: LoginInput!): AuthPayload!
+
+  """Logout and invalidate session"""
+  logout: Boolean!
+  reactToPost(emoji: String!, postId: String!): MessageResult!
+
+  """Refresh access token using refresh token"""
+  refreshToken(input: RefreshInput!): AuthPayload!
+
+  """Register a new user account"""
+  register(input: RegisterInput!): AuthPayload!
+  resolveSOS(sosId: String!): MessageResult!
+
+  """Send a message to the AI — creates a session if none provided"""
+  sendChatMessage(input: SendMessageInput!): ChatMessageType!
+
+  """Trigger SOS — notifies all emergency contacts immediately"""
+  triggerSOS(input: TriggerSOSInput!): SOSEventType!
+  updateHealthProfile(input: UpdateHealthProfileInput!): HealthProfileType!
+  updateJournalEntry(id: String!, input: UpdateJournalInput!): JournalEntryType!
+  updateMe(input: UpdateUserInput!): UserType!
+}
+
+type ProfessionalType {
+  bio: String
+  currency: String!
+  id: ID!
+  is_available: Boolean!
+  languages: [String!]!
+  license_number: String!
+  license_state: String!
+  professional_type: String!
+  rating: Float
+  session_rate: Float!
+  specialisations: [String!]!
+  total_sessions: Int!
+  user_id: ID!
+  verification_status: String!
+  years_experience: Int!
+}
+
+type Query {
+  activities(tag: String): [ActivityType!]!
+  chatMessages(sessionId: String!): [ChatMessageType!]!
+  chatSession(id: String!): ChatSessionType!
+  communities(search: String, therapyType: String): [CommunityType!]!
+  communityPosts(communityId: String!): [CommunityPostType!]!
+  dailyPrompt: DailyPromptType!
+  dashboardStats: DashboardStatsType!
+  journalEntry(id: String!): JournalEntryType!
+
+  """Get the currently authenticated user"""
+  me: UserType!
+  moodTrends(days: Int! = 14): [MoodTrendType!]!
+  myActivitySessions: [ActivitySessionType!]!
+  myActivityStreak: ActivityStreakType!
+  myAppointments: [AppointmentType!]!
+  myChatSessions(limit: Int! = 20, status: String): [ChatSessionType!]!
+  myEmergencyContacts: [EmergencyContactType!]!
+  myHealthProfile: HealthProfileType!
+  myJournals(endDate: String, limit: Int! = 20, startDate: String): [JournalEntryType!]!
+  myMoods(days: Int! = 30): [MoodLogType!]!
+  professional(id: String!): ProfessionalType!
+  professionals(availableOnly: Boolean! = false, professionalType: String, specialisation: String): [ProfessionalType!]!
+  sosHistory: [SOSEventType!]!
+  wellnessReport(reportType: String! = "weekly"): WellnessReportType!
+}
+
+input RefreshInput {
+  refresh_token: String!
+}
+
+input RegisterInput {
+  email: String!
+  first_name: String!
+  last_name: String!
+  password: String!
+}
+
+type SOSEventType {
+  contacts_notified: [String!]!
+  crisis_type: String
+  id: ID!
+  location_shared: Boolean!
+  resolved: Boolean!
+  trigger_source: String!
+  triggered_at: String!
+}
+
+input SendMessageInput {
+  content: String!
+  session_id: ID
+}
+
+type Subscription {
+  chatMessageAdded(sessionId: String!): ChatMessageType!
+  sosTriggered: SOSEventType!
+}
+
+input TriggerSOSInput {
+  crisis_type: String
+  latitude: Float
+  longitude: Float
+  share_location: Boolean! = false
+  trigger_source: String! = "manual_button"
+}
+
+input UpdateHealthProfileInput {
+  gad7_score: Int
+  goals: [String!]
+  phq9_score: Int
+  primary_concern: String
+  therapy_types: [String!]
+  triggers: [String!]
+}
+
+input UpdateJournalInput {
+  content: String
+  emotion_tags: [String!]
+  is_shared_with_therapist: Boolean
+  title: String
+}
+
+input UpdateUserInput {
+  first_name: String
+  language: String
+  last_name: String
+  phone: String
+  timezone: String
+}
+
+type UserType {
+  avatar_url: String
+  created_at: String!
+  email: String!
+  first_name: String!
+  gender: String
+  id: ID!
+  is_verified: Boolean!
+  language: String!
+  last_name: String!
+  onboarding_completed: Boolean!
+  phone: String
+  role: String!
+  timezone: String!
+}
+
+type WellnessReportType {
+  activities_completed: Int!
+  avg_mood_score: Float
+  chat_sessions_count: Int!
+  generated_at: String!
+  id: ID!
+  journal_entries: Int!
+  period_end: String!
+  period_start: String!
+  report_type: String!
+  sos_events_count: Int!
+  wellness_score: Float
+}
