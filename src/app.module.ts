@@ -18,6 +18,7 @@ import { CommunityModule } from './community/community.module';
 import { ProfessionalsModule } from './professionals/professionals.module';
 import { SosModule } from './sos/sos.module';
 import { AnalyticsModule } from './analytics/analytics.module';
+import { HealWithHistoryModule } from './heal_with_history/heal_with_history.module';
 
 @Module({
 	imports: [
@@ -90,6 +91,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
 		ProfessionalsModule,
 		SosModule,
 		AnalyticsModule,
+		HealWithHistoryModule,
 	],
 })
 export class AppModule {}
