@@ -44,6 +44,7 @@ export class UsersResolver {
         @AuthToken() token: string,
         @Args('input') input: UpdateHealthProfileInput,
     ): Promise<HealthProfileType> {
+        console.log('updateHealthProfile hit', { hasToken: !!token, input });
         return this.users.updateHealthProfile(token, input) as Promise<HealthProfileType>;
     }
 

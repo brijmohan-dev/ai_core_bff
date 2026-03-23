@@ -10,6 +10,7 @@ export class AuthResolver {
 	async register(
 		@Args('input') input: RegisterInput
 	): Promise<AuthPayload> {
+		console.log(input)
 		return this.auth.register(input) as Promise<AuthPayload>;
 	}
 

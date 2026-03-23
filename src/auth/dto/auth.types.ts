@@ -1,28 +1,66 @@
 import { ObjectType, Field, InputType } from '@nestjs/graphql';
+import { IsEmail, IsNotEmpty, IsNumber, IsString, MinLength } from 'class-validator';
 
 @ObjectType()
 export class AuthPayload {
-	@Field() access_token: string;
-	@Field() refresh_token: string;
-	@Field() token_type: string;
-	@Field() expires_in: number;
+	@Field() 
+	@IsString()
+	access_token: string;
+
+	@Field()
+	@IsString()
+	refresh_token: string;
+
+	@Field() 
+	@IsString()
+	token_type: string;
+
+	@Field() 
+	@IsNumber()
+	expires_in: number;
 }
 
 @InputType()
 export class RegisterInput {
-	@Field() email: string;
-	@Field() password: string;
-	@Field() first_name: string;
-	@Field() last_name: string;
+	@Field()
+	@IsEmail()
+	@IsNotEmpty()
+	email: string;
+
+	@Field()
+	@IsString()
+	@MinLength(8)
+	@IsNotEmpty()
+	password: string;
+
+	@Field()
+	@IsString()
+	@IsNotEmpty()
+	first_name: string;
+
+	@Field()
+	@IsString()
+	@IsNotEmpty()
+	last_name: string;
 }
 
 @InputType()
 export class LoginInput {
-	@Field() email: string;
-	@Field() password: string;
+	@Field()
+	@IsEmail()
+	@IsNotEmpty()
+	email: string;
+
+	@Field()
+	@IsString()
+	@IsNotEmpty()
+	password: string;
 }
 
 @InputType()
 export class RefreshInput {
-	@Field() refresh_token: string;
+	@Field()
+	@IsString()
+	@IsNotEmpty()
+	refresh_token: string;
 }

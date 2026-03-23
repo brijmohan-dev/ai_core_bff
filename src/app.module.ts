@@ -58,6 +58,7 @@ import { HealWithHistoryModule } from './heal_with_history/heal_with_history.mod
 						credentials: true,
 					},
 					formatError: (error) => {
+						console.error('GraphQL error', JSON.stringify(error, null, 2));
 						// Custom error formatting
 						return {
 							message: error.message,

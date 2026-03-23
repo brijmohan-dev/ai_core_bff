@@ -8,7 +8,7 @@ export class CoreClientService {
 	private readonly logger = new Logger(CoreClientService.name);
 
 	constructor(private config: ConfigService) {
-		const baseURL = config.get<string>('CORE_SERVICE_URL', 'http://core:8000');
+		const baseURL = config.get<string>('CORE_SERVICE_URL', 'http://localhost:8000');
 
 		this.http = axios.create({
 			baseURL: `${baseURL}/api/v1`,

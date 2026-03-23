@@ -15,6 +15,9 @@ async function bootstrap() {
 	const port = config.get<number>('PORT', 3000);
 	const allowedOrigins = config.get<string>('ALLOWED_ORIGINS', '').split(',').map((o) => o.trim());
 
+	const jwtSecret = config.get<string>('JWT_SECRET');
+	logger.log(`JWT_SECRET loaded: ${Boolean(jwtSecret)} len=${jwtSecret?.length ?? 0}`);
+
 	// Security
 	app.use(
 		helmet({

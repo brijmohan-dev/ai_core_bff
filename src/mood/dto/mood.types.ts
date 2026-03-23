@@ -1,33 +1,92 @@
 import {
     ObjectType, Field, InputType, ID, Float, Int
 } from '@nestjs/graphql';
+import { IsArray, IsNumber, IsOptional, IsString } from 'class-validator';
 
 
 @ObjectType()
 export class MoodLogType {
-    @Field(() => ID) id: string;
-    @Field(() => Int) mood_score: number;
-    @Field({ nullable: true }) mood_emoji?: string;
-    @Field(() => Int, { nullable: true }) energy_level?: number;
-    @Field(() => Int, { nullable: true }) anxiety_level?: number;
-    @Field(() => [String]) context_tags: string[];
-    @Field({ nullable: true }) note?: string;
-    @Field() logged_at: string;
+    @Field(() => ID) 
+    @IsString()
+    id: string;
+
+    @Field(() => Int) 
+    @IsNumber()
+    mood_score: number;
+
+    @Field({ nullable: true }) 
+    @IsString()
+    @IsOptional()
+    mood_emoji?: string;
+
+    @Field(() => Int, { nullable: true }) 
+    @IsNumber()
+    @IsOptional()
+    energy_level?: number;
+
+    @Field(() => Int, { nullable: true }) 
+    @IsNumber()
+    @IsOptional()
+    anxiety_level?: number;
+
+    @Field(() => [String]) 
+    @IsArray()
+    @IsString({ each: true })
+    context_tags: string[];
+
+    @Field({ nullable: true }) 
+    @IsString()
+    @IsOptional()
+    note?: string;
+
+    @Field() 
+    @IsString()
+    logged_at: string;
 }
 
 @ObjectType()
 export class MoodTrendType {
-    @Field() date: string;
-    @Field(() => Float) avg_score: number;
-    @Field(() => Int) count: number;
+    @Field() 
+    @IsString()
+    date: string;
+
+    @Field(() => Float) 
+    @IsNumber()
+    avg_score: number;
+
+    @Field(() => Int) 
+    @IsNumber()
+    count: number;
 }
 
 @InputType()
 export class LogMoodInput {
-    @Field(() => Int) mood_score: number;
-    @Field({ nullable: true }) mood_emoji?: string;
-    @Field(() => Int, { nullable: true }) energy_level?: number;
-    @Field(() => Int, { nullable: true }) anxiety_level?: number;
-    @Field(() => [String], { defaultValue: [] }) context_tags: string[];
-    @Field({ nullable: true }) note?: string;
+    @Field(() => Int) 
+    @IsNumber()
+    mood_score: number;
+
+    @Field({ nullable: true }) 
+    @IsString()
+    @IsOptional()
+    mood_emoji?: string;
+
+    @Field(() => Int, { nullable: true }) 
+    @IsNumber()
+    @IsOptional()
+    energy_level?: number;
+
+    @Field(() => Int, { nullable: true }) 
+    @IsNumber()
+    @IsOptional()
+    anxiety_level?: number;
+
+    @Field(() => [String], { defaultValue: [] }) 
+    @IsArray()
+    @IsString({ each: true })
+    context_tags: string[];
+
+    @Field({ nullable: true }) 
+    @IsString()
+    @IsOptional()
+    note?: string;
 }
