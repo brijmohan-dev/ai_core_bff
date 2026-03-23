@@ -24,7 +24,12 @@ export class HealWithHistoryService {
     async historyStory(ctx: any, figureSlug?: string) {
         // This may take a few seconds on first call (AI generation)
         const token = ctx.req?.headers?.authorization?.replace('Bearer ', '');
-        return this.core.get(`/history/stories/${figureSlug}`, token);
+        return this.core.get(
+            `/history/stories/${figureSlug}`,
+            token,
+            undefined,
+            { timeout: 120000 },
+        );
     }
 
     async historyEras(ctx: any) {
